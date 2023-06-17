@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import "./datatable.css"
 import "./toggle.css"
 
@@ -6,7 +6,18 @@ const DataTable = ({ data }) => {
   const [expandValueDetails, setExpandValueDetails] = useState(false);
   const [expandOrdersDetails, setExpandOrdersDetails] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(null);
-  const parentRef = useRef();
+  const [selectedCountries, setSelectedCountries] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleCountrySelection = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
+    setSelectedCountries(selectedOptions);
+  };
+  
+  const handleDropdownToggle = () => {
+    setShowDropdown(!showDropdown);
+  };
+
 
   // const handleValueDetailsClick = () => {
   //   setExpandValueDetails(!expandValueDetails);
@@ -17,6 +28,30 @@ const DataTable = ({ data }) => {
   // };
 
   return (
+    <div className="table-container">
+    <div className="dropdown-container">
+      <button className="dropdown-toggle" onClick={handleDropdownToggle}>
+        Show Orders by Countries
+      </button>
+      {showDropdown && (
+        <select
+          multiple
+          value={selectedCountries}
+          onChange={handleCountrySelection}
+          className="country-dropdown"
+          style={{ zIndex: 1 }}
+        >
+          {data
+            .flatMap((item) => item.orders_details.map((order) => order.country))
+            .filter((value, index, self) => self.indexOf(value) === index)
+            .map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
+        </select>
+      )}
+    </div>
     <table>
       <thead>
         <tr>
@@ -35,7 +70,11 @@ const DataTable = ({ data }) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((item) => (
+        {data.filter((item) =>
+              item.orders_details.some((order) =>
+                selectedCountries.includes(order.country)
+              )
+            ).map((item) => (
           <tr key={item.month}>
             <td>{item.month}</td>
             <td onClick={() => selectedMonth === item.month ? setSelectedMonth(null): setSelectedMonth(item.month)} style={{ cursor: 'pointer' }}>{item.total_value}{' '}
@@ -58,6 +97,9 @@ const DataTable = ({ data }) => {
                     <div>
                       <strong>Total Amount:</strong> {order.total_amount}
                     </div>
+                    <div>
+                      <strong>Country:</strong> {order.country}
+                    </div>
                   </td>
                 </div>
               ))}
@@ -70,6 +112,7 @@ const DataTable = ({ data }) => {
         ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

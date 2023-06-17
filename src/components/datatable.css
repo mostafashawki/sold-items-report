@@ -135,9 +135,37 @@
   /* ////////////////////////////// */
 
 
-.toggle{
-    
-}
+  .table-container {
+    position: relative;
+  }
+  
+  .dropdown-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .dropdown-toggle {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .country-dropdown {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+    z-index: 2;
+  }
+  
+  /* Rest of the CSS code */
   
   
   

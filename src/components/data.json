@@ -18,13 +18,15 @@
           "order_id":"1234",
           "quantity":"1",
           "unit_price":"10000",
-          "total_amount":"10000"
+          "total_amount":"10000",
+          "country": "US"
         },
         {
           "order_id":"1235",
           "quantity":"1",
           "unit_price":"10000",
-          "total_amount":"10000"
+          "total_amount":"10000",
+          "country": "DE"
         }
       ]
     },
@@ -47,13 +49,15 @@
             "order_id":"1234",
             "quantity":"1",
             "unit_price":"10000",
-            "total_amount":"10000"
+            "total_amount":"10000",
+            "country": "DE"
           },
           {
             "order_id":"1235",
             "quantity":"1",
             "unit_price":"10000",
-            "total_amount":"10000"
+            "total_amount":"10000",
+            "country": "FR"
           }
         ]
       },
@@ -76,13 +80,15 @@
             "order_id":"1234",
             "quantity":"1",
             "unit_price":"10000",
-            "total_amount":"10000"
+            "total_amount":"10000",
+            "country": "FR"
           },
           {
             "order_id":"1235",
             "quantity":"1",
             "unit_price":"10000",
-            "total_amount":"10000"
+            "total_amount":"10000",
+            "country": "FR"
           }
         ]
       },
@@ -105,13 +111,15 @@
             "order_id":"1234",
             "quantity":"1",
             "unit_price":"10000",
-            "total_amount":"10000"
+            "total_amount":"10000",
+            "country": "ES"
           },
           {
             "order_id":"1235",
             "quantity":"1",
             "unit_price":"10000",
-            "total_amount":"10000"
+            "total_amount":"10000",
+            "country": "US"
           }
         ]
       }
