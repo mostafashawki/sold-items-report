@@ -1,0 +1,30 @@
+/* Class for the element being animated */
+
+  .toggle-row{
+    height: 100px;
+    overflow: hidden;
+    opacity: 1;
+    transition: height 0.7s ease, opacity 0.7s ease-in-out;
+  }
+
+  .toggle-row.hidden{
+    height: 0px;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 0.7s ease, opacity 0.9s ease-in-out;
+  }
+
+  .toggle-col{
+    width: 150px;
+    opacity: 1;
+    overflow: hidden;
+    transition: width 0.9s ease-in-out, opacity 0.7s ease-in-out;
+  }
+
+  .toggle-col.hidden{
+    width: 0px;
+    overflow: hidden;
+    transition: width 0.7s ease-in-out, opacity 0.9s ease-in-out;
+    opacity: 0;
+  }
+  
