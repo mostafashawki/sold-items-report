@@ -18,13 +18,13 @@
     width: 150px;
     opacity: 1;
     overflow: hidden;
-    transition: width 0.9s ease-in-out, opacity 0.7s ease-in-out;
+    transition: width 0.9s ease-in-out, opacity 0.9s ease-in-out;
   }
 
   .toggle-col.hidden{
     width: 0px;
     overflow: hidden;
-    transition: width 0.7s ease-in-out, opacity 0.9s ease-in-out;
+    transition: width 0.9s ease-in-out, opacity 0.9s ease-in-out;
     opacity: 0;
   }
   

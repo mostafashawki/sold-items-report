@@ -5,45 +5,46 @@ import "./toggle.css"
 const DataTable = ({ data }) => {
   const [expandValueDetails, setExpandValueDetails] = useState(false);
   const [expandOrdersDetails, setExpandOrdersDetails] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(null);
   const parentRef = useRef();
 
-  const handleValueDetailsClick = () => {
-    setExpandValueDetails(!expandValueDetails);
-  };
+  // const handleValueDetailsClick = () => {
+  //   setExpandValueDetails(!expandValueDetails);
+  // };
 
-  const handleOrdersDetailsClick = () => {
-    setExpandOrdersDetails(!expandOrdersDetails);
-  };
+  // const handleOrdersDetailsClick = () => {
+  //   setExpandOrdersDetails(!expandOrdersDetails);
+  // };
 
   return (
     <table>
       <thead>
         <tr>
+          <th colSpan="3"></th>
+          <th colSpan="3">{expandValueDetails ? 'Amounts sold by Brand': ''}</th>
+        </tr>
+        <tr>
           <th>Month</th>
           <th onClick={() => setExpandValueDetails(!expandValueDetails)} >
             Total Value {expandValueDetails ? '-' : '+'}
           </th>
-          {/* {expandValueDetails && ( */}
-            <th>
-              Brands
+            
               <th className={`toggle-col ${expandValueDetails ? '' : 'hidden'}`}>BMW</th>
               <th className={`toggle-col ${expandValueDetails ? '' : 'hidden'}`}>Suzuki</th>
               <th className={`toggle-col ${expandValueDetails ? '' : 'hidden'}`}>Volvo</th>
-              </th>
-          {/* )} */}
         </tr>
       </thead>
       <tbody>
         {data.map((item) => (
           <tr key={item.month}>
             <td>{item.month}</td>
-            <td onClick={() => setExpandOrdersDetails(!expandOrdersDetails)} style={{ cursor: 'pointer' }}>{item.total_value}{' '}
-            {expandOrdersDetails ? '▼' : '►'}
+            <td onClick={() => selectedMonth === item.month ? setSelectedMonth(null): setSelectedMonth(item.month)} style={{ cursor: 'pointer' }}>{item.total_value}{' '}
+            {selectedMonth === item.month ? '▼' : '►'}
 
             
            {
               item.orders_details.map((order) => (
-                <div key={order.order_id} className={`toggle-row ${expandOrdersDetails ? '' : 'hidden'}`}>
+                <div key={order.order_id} className={`toggle-row ${selectedMonth === item.month ? '' : 'hidden'}`}>
                   <td colSpan={expandValueDetails ? 6 : 4}>
                     <div>
                       <strong>Order ID:</strong> {order.order_id}
