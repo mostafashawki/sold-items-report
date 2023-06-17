@@ -1,6 +1,28 @@
+:root {
+  /* Light theme colors */
+  --primary-color: #007bff;
+  --background-color: #ffffff;
+  --text-color: #333333;
+
+  /* Dark theme colors */
+  --dark-primary-color: #e6e6e6;
+  --dark-background-color: #1e1e1e;
+  --dark-text-color: #ffffff;
+}
+
+/* Dark theme styles */
+.dark-theme {
+  --primary-color: var(--dark-primary-color);
+  --background-color: var(--dark-background-color);
+  --text-color: var(--dark-text-color);
+}
+
 .table-container {
     margin: 20px;
+    color: var(--text-color);
+    background-color: var(--background-color);
   }
+
   
   table {
     border-collapse: collapse;
@@ -8,7 +30,8 @@
   }
   
   thead th {
-    background-color: #f5f5f5;
+    background-color: var(--background-color);
+    color: var(--primary-color);
     border-bottom: 1px solid #ddd;
     padding: 12px;
     text-align: left;
@@ -17,7 +40,7 @@
   }
   
   thead th:hover {
-    background-color: #e0e0e0;
+    background-color: var(--background-color);
   }
   
   th:first-child {
@@ -35,104 +58,12 @@
     padding: 12px;
   }
   
-  /* td:first-child {
-    font-weight: bold;
-  } */
   
   td:first-child:hover {
-    background-color: #fafafa;
+    background-color: var(--background-color);
     cursor: pointer;
   }
   
-  .expandable-row {
-    background-color: #fafafa;
-    overflow: hidden;
-    max-height: 0;
-    animation: expandRow 0.9s ease-in-out forwards;
-  }
-  
-  @keyframes expandRow {
-    from {
-      max-height: 0;
-      padding: 0;
-    }
-    to {
-      max-height: 500px; /* Adjust the value as per your requirements */
-      padding: 12px;
-    }
-  }
-  
-  .expandable-row.show {
-    animation: collapseRow 0.9s ease-in-out forwards;
-  }
-  
-  @keyframes collapseRow {
-    from {
-      max-height: 500px; /* Adjust the value as per your requirements */
-      padding: 12px;
-    }
-    to {
-      max-height: 0;
-      padding: 0;
-    }
-  }
-  
-  .expandable-row td {
-    padding-bottom: 12px;
-  }
-  
-  .expandable-row:last-child td {
-    padding-bottom: 0;
-  }
-  
-  .expandable-row td[colspan] {
-    padding-top: 12px;
-  }
-  
-  .expandable-row td[colspan] button {
-    border: none;
-    background-color: transparent;
-    color: #2196f3;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-/* ////////////////////// */
-  .expandable-col {
-    background-color: #fafafa;
-    animation: expandCol 0.9s linear backwards;
-  }
-
-  .collapse-col {
-    background-color: #fafafa;
-    animation: collapseCol 0.9s linear backwards;
-  }
-  
-  @keyframes expandCol {
-    from {
-      /* max-width: 0; */
-      padding: 0;
-    }
-    to {
-      /* max-width: 100%;  */
-      padding: 12px;
-    }
-  }
-  
-  /* .expandable-col.show {
-    animation: collapseCol 0.9s linear;
-  } */
-  
-  @keyframes collapseCol {
-    from {
-      /* max-width: 100%;  */
-      padding: 12px;
-    }
-    to {
-      /* max-width: 0; */
-      padding: 0;
-    }
-  }
-  /* ////////////////////////////// */
 
 
   .table-container {
@@ -146,9 +77,9 @@
   }
   
   .dropdown-toggle {
-    background: none;
+    background: var(--background-color);
     border: none;
-    color: #007bff;
+    color: var(--primary-color);
     cursor: pointer;
     font-size: 14px;
   }
@@ -157,15 +88,14 @@
     position: absolute;
     top: 30px;
     right: 0;
-    background-color: #fff;
+    background-color: var(--background-color);
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 5px;
     width: 150px;
     z-index: 2;
   }
-  
-  /* Rest of the CSS code */
+
   
   
   

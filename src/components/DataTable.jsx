@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./datatable.css"
+// import "./datatable-dark.css"
 import "./toggle.css"
 
 const DataTable = ({ data }) => {
@@ -8,6 +9,8 @@ const DataTable = ({ data }) => {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
 
   const handleCountrySelection = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
@@ -17,6 +20,11 @@ const DataTable = ({ data }) => {
   const handleDropdownToggle = () => {
     setShowDropdown(!showDropdown);
   };
+
+  const handleThemeToggle = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+  
 
 
   // const handleValueDetailsClick = () => {
@@ -28,7 +36,13 @@ const DataTable = ({ data }) => {
   // };
 
   return (
-    <div className="table-container">
+    <div className={`table-container ${isDarkTheme ? 'dark-theme' : ''}`}>
+      <div className="theme-toggle">
+        <button onClick={handleThemeToggle}>
+          {isDarkTheme ? 'Light Theme' : 'Dark Theme'}
+        </button>
+      </div>
+
     <div className="dropdown-container">
       <button className="dropdown-toggle" onClick={handleDropdownToggle}>
         Show Orders by Countries
