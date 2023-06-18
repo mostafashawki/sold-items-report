@@ -9,6 +9,7 @@ This is a sample React application that demonstrates the implementation of a Dat
 - Filter functionality to dynamically search and display filtered data using `Show Orders by Countries` button.
 - Smooth transitions when collapse/expand columns and rows using CSS transitions, exapnding column by clicking on the `Total Value` header to see the divided amout by brand, and to expand row by clicking on the value itself on each row to see all the orders history items.
 - Use `handleRetrieveAllData` function to retrieve all data.
+- `Loading` effect on retreiving data and `Debounce` effect on filteration.
 
 ## How to Run
 

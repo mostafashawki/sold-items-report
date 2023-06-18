@@ -3,13 +3,14 @@ import "./datatable.css"
 import "./toggle.css"
 
 const DataTable = ({ data }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const [expandValueDetails, setExpandValueDetails] = useState(false);
-  const [expandOrdersDetails, setExpandOrdersDetails] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const selectRef = useRef(null);
   const [filteredData, setFilteredData] = useState([]);
+  let timeoutId;
   
 
   //The event listeners are added only once when the component is mounted
@@ -36,8 +37,9 @@ const DataTable = ({ data }) => {
     };
   }, []);
   useEffect(() => {
-    
-    let filtered = [];
+
+    const filterData = () => {
+      let filtered = [];
     
     // Apply the filter to the original data
     
@@ -47,13 +49,33 @@ const DataTable = ({ data }) => {
         selectedCountries.includes(order.country)
       ))
     }
+
     setFilteredData(filtered);
+    setIsLoading(false);
+    }
+    
+    setIsLoading(true);
+    // Debounce the filter logic
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(filterData, 700);
+
+    return () => {
+      clearTimeout(timeoutId);
+      
+    };
+    
   }, [data, selectedCountries]);
 
 const handleRetrieveAllData = () => {
   console.log('handleRetrieveAllData')
-  //take a deep copy of the original
-  setFilteredData(JSON.parse(JSON.stringify(data)));
+  setIsLoading(true);
+
+  setTimeout(() => {
+    //take a deep copy of the original
+    setFilteredData(JSON.parse(JSON.stringify(data)));
+    setIsLoading(false);
+  }, 700);
+  
 }
 
 
@@ -61,7 +83,6 @@ const handleRetrieveAllData = () => {
     const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
     setSelectedCountries(selectedOptions);
   };
-  
 
   return (
     <div className={`table-container`}>
@@ -111,7 +132,8 @@ const handleRetrieveAllData = () => {
         </tr>
       </thead>
       <tbody>
-        {filteredData.map((item) => (
+        {isLoading ? <tr>Loading...</tr>: 
+        filteredData.map((item) => (
           <tr key={item.month}>
             <td>{item.month}</td>
             <td onClick={() => selectedMonth === item.month ? setSelectedMonth(null): setSelectedMonth(item.month)} style={{ cursor: 'pointer' }}>{item.total_value}{' '}
