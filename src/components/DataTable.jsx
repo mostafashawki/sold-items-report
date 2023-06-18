@@ -11,7 +11,10 @@ const DataTable = ({ data }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const selectRef = useRef(null);
+  const [filteredData, setFilteredData] = useState([]);
+  
 
+  //The event listeners are added only once when the component is mounted
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (selectRef.current && !selectRef.current.contains(event.target)) {
@@ -28,11 +31,32 @@ const DataTable = ({ data }) => {
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleKeyPress);
 
+    //cleanup
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleKeyPress);
     };
   }, []);
+  useEffect(() => {
+    
+    let filtered = [];
+    
+    // Apply the filter to the original data
+    
+    if (selectedCountries.length > 0) {
+      filtered = data.filter((item) =>
+      item.orders_details.some((order) =>
+        selectedCountries.includes(order.country)
+      ))
+    }
+    setFilteredData(filtered);
+  }, [data, selectedCountries]);
+
+const handleRetrieveAllData = () => {
+  console.log('handleRetrieveAllData')
+  //take a deep copy of the original
+  setFilteredData(JSON.parse(JSON.stringify(data)));
+}
 
 
   const handleCountrySelection = (event) => {
@@ -40,23 +64,11 @@ const DataTable = ({ data }) => {
     setSelectedCountries(selectedOptions);
   };
   
-  const handleDropdownToggle = () => {
-    setShowDropdown(!showDropdown);
-  };
 
   const handleThemeToggle = () => {
     setIsDarkTheme(!isDarkTheme);
   };
   
-
-
-  // const handleValueDetailsClick = () => {
-  //   setExpandValueDetails(!expandValueDetails);
-  // };
-
-  // const handleOrdersDetailsClick = () => {
-  //   setExpandOrdersDetails(!expandOrdersDetails);
-  // };
 
   return (
     <div className={`table-container ${isDarkTheme ? 'dark-theme' : ''}`}>
@@ -67,9 +79,13 @@ const DataTable = ({ data }) => {
       </div>
 
     <div className="dropdown-container" ref={selectRef}>
-      <button className="dropdown-toggle" onClick={handleDropdownToggle}>
+    <button className="dropdown-toggle" onClick={handleRetrieveAllData}>
+      Retrieve All Data
+      </button> |
+      <button className="dropdown-toggle" onClick={()=>setShowDropdown(!showDropdown)}>
         Show Orders by Countries
-      </button>
+      </button> 
+      
       {showDropdown && (
         <select
           multiple
@@ -78,10 +94,10 @@ const DataTable = ({ data }) => {
           className="country-dropdown"
           style={{ zIndex: 1 }}
         >
-          {data
-            .flatMap((item) => item.orders_details.map((order) => order.country))
-            .filter((value, index, self) => self.indexOf(value) === index)
-            .map((country) => (
+          {
+            
+            data.flatMap((item) => item.orders_details.map((order) => order.country))
+    .filter((value, index, self) => self.indexOf(value) === index).map((country) => (
               <option key={country} value={country}>
                 {country}
               </option>
@@ -107,11 +123,7 @@ const DataTable = ({ data }) => {
         </tr>
       </thead>
       <tbody>
-        {data.filter((item) =>
-              item.orders_details.some((order) =>
-                selectedCountries.includes(order.country)
-              )
-            ).map((item) => (
+        {filteredData.map((item) => (
           <tr key={item.month}>
             <td>{item.month}</td>
             <td onClick={() => selectedMonth === item.month ? setSelectedMonth(null): setSelectedMonth(item.month)} style={{ cursor: 'pointer' }}>{item.total_value}{' '}
@@ -120,25 +132,25 @@ const DataTable = ({ data }) => {
             
            {
               item.orders_details.map((order) => (
-                <div key={order.order_id} className={`toggle-row ${selectedMonth === item.month ? '' : 'hidden'}`}>
-                  <td colSpan={expandValueDetails ? 6 : 4}>
-                    <div>
+                <ul key={order.order_id} className={`toggle-row ${selectedMonth === item.month ? '' : 'hidden'}`}>
+                  <td colSpan={expandValueDetails ? 6 : 4} >
+                    <li>
                       <strong>Order ID:</strong> {order.order_id}
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                       <strong>Quantity:</strong> {order.quantity}
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                       <strong>Unit Price:</strong> {order.unit_price}
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                       <strong>Total Amount:</strong> {order.total_amount}
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                       <strong>Country:</strong> {order.country}
-                    </div>
+                    </li>
                   </td>
-                </div>
+                </ul>
               ))}
               </td>
               {
