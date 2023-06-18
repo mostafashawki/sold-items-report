@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import "./datatable.css"
 // import "./datatable-dark.css"
 import "./toggle.css"
@@ -10,6 +10,29 @@ const DataTable = ({ data }) => {
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectRef.current && !selectRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    const handleKeyPress = (event) => {
+      if (event.key === 'Tab') {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
 
 
   const handleCountrySelection = (event) => {
@@ -43,7 +66,7 @@ const DataTable = ({ data }) => {
         </button>
       </div>
 
-    <div className="dropdown-container">
+    <div className="dropdown-container" ref={selectRef}>
       <button className="dropdown-toggle" onClick={handleDropdownToggle}>
         Show Orders by Countries
       </button>
