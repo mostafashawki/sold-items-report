@@ -1,26 +1,8 @@
-:root {
-  /* Light theme colors */
-  --primary-color: #007bff;
-  --background-color: #ffffff;
-  --text-color: #333333;
 
-  /* Dark theme colors */
-  --dark-primary-color: #e6e6e6;
-  --dark-background-color: #1e1e1e;
-  --dark-text-color: #ffffff;
-}
-
-/* Dark theme styles */
-.dark-theme {
-  --primary-color: var(--dark-primary-color);
-  --background-color: var(--dark-background-color);
-  --text-color: var(--dark-text-color);
-}
 
 .table-container {
     margin: 20px;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    
   }
 
   

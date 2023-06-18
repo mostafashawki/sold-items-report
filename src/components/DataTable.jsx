@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "./datatable.css"
-// import "./datatable-dark.css"
 import "./toggle.css"
 
 const DataTable = ({ data }) => {
@@ -9,7 +8,6 @@ const DataTable = ({ data }) => {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const selectRef = useRef(null);
   const [filteredData, setFilteredData] = useState([]);
   
@@ -65,19 +63,9 @@ const handleRetrieveAllData = () => {
   };
   
 
-  const handleThemeToggle = () => {
-    setIsDarkTheme(!isDarkTheme);
-  };
-  
-
   return (
-    <div className={`table-container ${isDarkTheme ? 'dark-theme' : ''}`}>
-      <div className="theme-toggle">
-        <button onClick={handleThemeToggle}>
-          {isDarkTheme ? 'Light Theme' : 'Dark Theme'}
-        </button>
-      </div>
-
+    <div className={`table-container`}>
+      <h1>Sales Report</h1>
     <div className="dropdown-container" ref={selectRef}>
     <button className="dropdown-toggle" onClick={handleRetrieveAllData}>
       Retrieve All Data

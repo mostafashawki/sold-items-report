@@ -1,5 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+:root {
+  /* Light theme colors */
+  --primary-color: #007bff;
+  --background-color: #ffffff;
+  --text-color: #333333;
+
+  /* Dark theme colors */
+  --dark-primary-color: #e6e6e6;
+  --dark-background-color: #202123;
+  --dark-text-color: #ffffff;
+}
+
+/* Dark theme styles */
+.dark-theme {
+  --primary-color: var(--dark-primary-color);
+  --background-color: var(--dark-background-color);
+  --text-color: var(--dark-text-color);
+}
 
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+main{
+
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+  
+}
+
+.wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.transparent-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.theme-toggle{
+  padding: 20px;
 }
