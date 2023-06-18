@@ -11,6 +11,10 @@ This is a sample React application that demonstrates the implementation of a Dat
 - Use `handleRetrieveAllData` function to retrieve all data.
 - `Loading` effect on retreiving data and `Debounce` effect on filteration.
 
+## Online Demo
+
+Check out the online demo of the application: [Online Demo](https://sold-items-report.vercel.app/)
+
 ## How to Run
 
 Follow the instructions below to run the React app locally:
