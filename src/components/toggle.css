@@ -1,7 +1,7 @@
 /* Class for the element being animated */
 
   .toggle-row{
-    height: 130px;
+    height: 150px;
     overflow: hidden;
     opacity: 1;
     transition: height 0.7s ease, opacity 0.7s ease-in-out;
